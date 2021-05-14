@@ -7,7 +7,7 @@ const UserSummary = ({ user, onSave }) => {
 
   const handleSave = () => {
     setIsEditMode(false);
-    onSave(tempUser)
+    onSave(tempUser);
   };
 
   const handleChange = (e) => {
@@ -38,10 +38,11 @@ const UserSummary = ({ user, onSave }) => {
           </ul>
         </>
       ) : (
-        <>
-          <button onClick={handleSave}>Save</button>
-          <UserForm user={tempUser} onChange={handleChange} />
-        </>
+        <UserForm
+          user={tempUser}
+          onChange={handleChange}
+          handleSave={handleSave}
+        />
       )}
     </>
   );
