@@ -1,25 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import { USERS } from "./service/__mocks/users";
+import UserSummary from "./components/UserSummary";
+import "./App.css";
 
-function App() {
+const App = () => {
+  const [accounts, setAccounts] = useState(USERS);
+
+  const onSave = (user) => {
+    const accountsToUpdate = accounts.map((account) => {
+      if (account.id === user.id) {
+        return user;
+      }
+      return account;
+    });
+
+    setAccounts(accountsToUpdate);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div>
+        {accounts.map((user) => (
+          <UserSummary user={user} key={user.id} onSave={onSave}/>
+        ))}
+      </div>
     </div>
   );
-}
+};
 
 export default App;
